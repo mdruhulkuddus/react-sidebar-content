@@ -1,58 +1,22 @@
-import { Button, Layout, theme } from "antd";
-import {MenuUnfoldOutlined, MenuFoldOutlined} from '@ant-design/icons';
-import Logo from "./components/Logo";
-import MenuList from "./components/MenuList";
-import { useState } from "react";
-import ToggleThemeButton from "./components/ToggleThemeButton";
-import { Content } from "antd/es/layout/layout";
-
-const { Header, Sider, Footer } = Layout;
+import React from 'react'
+import LayoutComponent from './components/LayoutComponent';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import Activity from './pages/Activity';
 
 function App() {
-  const [darkTheme, setDarkTheme] = useState(true);
-  const [collapsed, setCollapsed] = useState(false)
-
-  const toggleTheme = () => {
-    setDarkTheme(!darkTheme);
-  };
-
-  const {
-    token: {colorBgContainer, borderRadiusLG}, 
-  } = theme.useToken();
-
+  
   return (
-    <Layout>
-      <Sider collapsed={collapsed} collapsible trigger={null} theme={darkTheme ? "dark" : "light"} className="sidebar">
-         <Logo />
-        <MenuList darkTheme={darkTheme} />
-        <ToggleThemeButton darkTheme={darkTheme} toggleTheme={toggleTheme} />
-      </Sider>
-      <Layout>
-        <Header style={{padding: 0, background: colorBgContainer }}>
-          <Button type="text" className="toggle" 
-          onClick={()=> setCollapsed(!collapsed)}
-          icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />} 
-          style={{
-              fontSize: '16px',
-              width: 64,
-              height: 64,
-            }}
-          />  
-        </Header>
-        <Content  style={{
-            margin: '24px 16px',
-            padding: 24,
-            minHeight: 280,
-            background: colorBgContainer,
-            borderRadius: borderRadiusLG,
-          }}>
-          Content
-        </Content>
-        <Footer style={{ textAlign: 'center' }}>
-          React Bangla ©{new Date().getFullYear()} Created by Ruhul Kuddus
-        </Footer>
-      </Layout>
-    </Layout>
+   <Router>
+     <LayoutComponent >
+/      <Routes>
+        {/* <Route path='/' element={<App />} /> */}
+        <Route path='/home' element={<Home />} />
+        <Route path='/activity' element={<Activity />} />
+      </Routes>
+    </LayoutComponent >
+   </Router>
+
   );
 }
 
